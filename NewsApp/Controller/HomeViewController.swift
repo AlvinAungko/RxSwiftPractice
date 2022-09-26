@@ -36,12 +36,16 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .white
+        view.addSubview(self.tableView)
         getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-22", to: "2022-09-22", sortBy: "popularity"))
         getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
-//        testingObservables()
-//        doSomeRealMExercises()
-//        testingSubject()
-        testBehaviorSubject()
+
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.frame = view.bounds
+        
     }
     
 }
@@ -236,11 +240,12 @@ extension HomeViewController
     private func setDataSourceAndDelegate()
     {
         self.tableView.dataSource = self
+        self.tableView.delegate = self
     }
     
 }
 
-extension HomeViewController:UITableViewDataSource
+extension HomeViewController:UITableViewDataSource,UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
@@ -254,16 +259,25 @@ extension HomeViewController:UITableViewDataSource
         switch indexPath.section
         {
         case 0:
-            guard let cell = self.tableView.dequeueReusableCell(withIdentifier: HeadLineTableViewCell.identifier, for: indexPath) as? HeadLineTableViewCell  else
-            {
-                return UITableViewCell()
-            }
+            let cell = self.tableView.dequeReusableCells(identifier: HeadLineTableViewCell.identifier, indexPath: indexPath) as HeadLineTableViewCell
+            
+            cell.setArticles(articles: self.listOfArticles ?? Array<Article>())
             
             return cell
             
         default: return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section
+        {
+        case 0: return 0
+        default:return 0
+        }
+    }
+    
+
 }
 
 enum SampleError:Error

@@ -168,6 +168,29 @@ extension RxSwiftPracticeViewController
         
         thirdSubscriber.disposed(by: self.disposeBag)
     }
+    
+    private func playPublishSubject()
+    {
+        let publishSubject = PublishSubject<String>()
+        
+        let firstObserver = publishSubject.subscribe {
+            switch $0
+            {
+                case.next(let data): debugPrint(data)
+                case.completed: debugPrint("Completed.")
+                case.error(let error):debugPrint(error.localizedDescription)
+            }
+        }
+        
+        publishSubject.on(.next("🦩"))
+        
+        firstObserver.disposed(by: self.disposeBag)
+    }
+    
+    private func createCustomObservable()
+    {
+        
+    }
 }
 
 enum DummyError:Error

@@ -11,6 +11,16 @@ class NewsArticlesCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "NewsArticlesCollectionViewCell"
     
+    private let newsTitle:UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        label.textColor = .white
+        return label
+    }()
+    
+    
+    
     private var article:Article?
     {
         didSet
@@ -24,10 +34,16 @@ class NewsArticlesCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.contentView.addSubview(self.newsTitle)
     }
     
     required init?(coder: NSCoder) {
        fatalError()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
     }
 }
 
@@ -40,6 +56,7 @@ extension NewsArticlesCollectionViewCell
     
     private func setArticleToCollectionViewCell(article:Article)
     {
+        self.newsTitle.text = article.title ?? ""
         
     }
 }

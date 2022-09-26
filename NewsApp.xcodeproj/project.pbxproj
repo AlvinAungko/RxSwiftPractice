@@ -189,10 +189,26 @@
 		E1B0033328DED5980090BB12 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E1B0033128DEB5090090BB12 /* HeadLineTableViewCell.swift */,
-				E1B0033428DED5B10090BB12 /* NewsArticlesCollectionViewCell.swift */,
+				E1B0033E28E1777F0090BB12 /* TableViewCell */,
+				E1B0033F28E177880090BB12 /* CollectionViewCell */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E1B0033E28E1777F0090BB12 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E1B0033128DEB5090090BB12 /* HeadLineTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		E1B0033F28E177880090BB12 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E1B0033428DED5B10090BB12 /* NewsArticlesCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
