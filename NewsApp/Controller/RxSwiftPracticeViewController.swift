@@ -14,7 +14,7 @@ class RxSwiftPracticeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       playBehaviorSubject()
+       playSkipUntil()
         // Do any additional setup after loading the view.
     }
     
@@ -109,7 +109,7 @@ extension RxSwiftPracticeViewController
             if $0.isCompleted {
                 debugPrint("Completed 🐏")
             } else {
-                debugPrint("🐿 It's not completed yet \($0.element ?? "")")
+                debugPrint("33🐿 It's not completed yet \($0.element ?? "")")
             }
         }
         
@@ -154,6 +154,8 @@ extension RxSwiftPracticeViewController
             debugPrint("\($0.element!) is the data that You Have Received for Second Subscriber.")
         }
         
+        
+        debugPrint("")
         behaviorSubject.onNext("🦧")
         behaviorSubject.onNext("🐇")
         
@@ -187,10 +189,106 @@ extension RxSwiftPracticeViewController
         firstObserver.disposed(by: self.disposeBag)
     }
     
-    private func createCustomObservable()
+    private func playFilteringWithObservables()
     {
+        let dummyObservale = Observable<String>.from(["🦘","🦒","🦦","🐬"]).filter {
+            $0 == "🐬"
+        }
+        
+        let firstObserver = dummyObservale.subscribe {
+            switch $0
+            {
+                case.next(let filteredData):
+                debugPrint("Filtered Data => \(filteredData)")
+                case.completed:
+                debugPrint("Complted")
+                case.error(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }
+        
+        firstObserver.disposed(by: self.disposeBag)
+        
+        let dummyObservableForDistinct = Observable<String>.from(["🐱", "🐷", "🐱", "🐱", "🐱", "🐵", "🐱"]).distinctUntilChanged()
+        
+        let observerToThatObservable = dummyObservableForDistinct.subscribe {
+            debugPrint("Printed : \($0.element ?? "") and event \($0)")
+        }
+        
+        observerToThatObservable.disposed(by: self.disposeBag)
+    }
+    
+    private func playUntil()
+    {
+       let customSubject = PublishSubject<[String]>()
+       let referenceSubject = PublishSubject<String>()
+        
+       let fistSubscriber = customSubject.take(until: referenceSubject).subscribe {
+           $0.element?.forEach({
+               debugPrint("Printed : \($0) at first Subscriber")
+           })
+           
+           if $0.isCompleted {
+               debugPrint($0)
+           } else {
+               debugPrint("Not Completed Yet")
+           }
+        }
+        
+        customSubject.onNext(["🦜","🐿","🐁"])
+        referenceSubject.onNext("🦔")
+        customSubject.onNext(["🦜","🐿","🐁"])
+        
+        fistSubscriber.disposed(by: self.disposeBag)
+        
+        let secondObserver = customSubject.take(until: referenceSubject).subscribe(onNext:{
+            $0.forEach { data in
+                debugPrint("Printed : \(data) at second Subscriber")
+            }
+        })
+        
+        customSubject.onNext(["🐇","🐇"])
+        customSubject.onNext(["🐇","🐈"])
+        
+        referenceSubject.onNext("🐃")
+        
+        customSubject.onNext(["🐓"])
+        
+        secondObserver.disposed(by: self.disposeBag)
         
     }
+    
+    private func playSkipUntil()
+    {
+        let customSubject = ReplaySubject<String>.create(bufferSize: 1)
+        let referencedSubject = PublishSubject<String>()
+        
+        //MARK: First Subscriber
+        customSubject.skip(until: referencedSubject).subscribe {
+            switch $0
+            {
+            case.next(let data):
+                debugPrint(data)
+            case.completed:
+                debugPrint("Completed")
+            case.error(let error):
+                debugPrint(error.localizedDescription)
+            }
+        }.disposed(by: self.disposeBag)
+        
+        customSubject.onNext("🌝 This will not be emitted")
+        referencedSubject.onNext("🎍")
+        customSubject.onNext("🍀 for First Subscriber of customObject")
+        
+        //MARK:Second Subscriber
+        customSubject.subscribe(onNext:{
+            debugPrint($0)
+        }).disposed(by: self.disposeBag)
+        
+        customSubject.onNext("🌼 for Second SubScriber but it will broadcast to first subscriber")
+    
+    }
+    
 }
 
 enum DummyError:Error

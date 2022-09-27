@@ -22,6 +22,7 @@
 		E1B0033728DEFA800090BB12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0033628DEFA800090BB12 /* Extensions.swift */; };
 		E1B0033B28E00C950090BB12 /* RxSwiftPracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0033A28E00C950090BB12 /* RxSwiftPracticeViewController.swift */; };
 		E1B0033D28E00D000090BB12 /* DummyObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0033C28E00D000090BB12 /* DummyObjects.swift */; };
+		E1B0034228E18A720090BB12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0034128E18A720090BB12 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		E1B0033628DEFA800090BB12 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E1B0033A28E00C950090BB12 /* RxSwiftPracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftPracticeViewController.swift; sourceTree = "<group>"; };
 		E1B0033C28E00D000090BB12 /* DummyObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyObjects.swift; sourceTree = "<group>"; };
+		E1B0034128E18A720090BB12 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F6C2B72FD297DBDF422A5E7E /* Pods_NewsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -105,7 +107,7 @@
 				E1B0032228DD793F0090BB12 /* Networking */,
 				E1B0033028DEB1310090BB12 /* ViewModel */,
 				E1B0033328DED5980090BB12 /* View */,
-				E1B0033628DEFA800090BB12 /* Extensions.swift */,
+				E1B0034028E18A5C0090BB12 /* Utils */,
 			);
 			path = NewsApp;
 			sourceTree = "<group>";
@@ -209,6 +211,15 @@
 				E1B0033428DED5B10090BB12 /* NewsArticlesCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		E1B0034028E18A5C0090BB12 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E1B0033628DEFA800090BB12 /* Extensions.swift */,
+				E1B0034128E18A720090BB12 /* Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +338,7 @@
 				E1B0033D28E00D000090BB12 /* DummyObjects.swift in Sources */,
 				E1B0030F28DD62960090BB12 /* HomeViewController.swift in Sources */,
 				E1B0030B28DD62960090BB12 /* AppDelegate.swift in Sources */,
+				E1B0034228E18A720090BB12 /* Utils.swift in Sources */,
 				E1B0032728DD7CF00090BB12 /* NewsDataModel.swift in Sources */,
 				E1B0032128DD67720090BB12 /* EndPoints.swift in Sources */,
 				E1B0032B28DD8DEF0090BB12 /* Constants.swift in Sources */,

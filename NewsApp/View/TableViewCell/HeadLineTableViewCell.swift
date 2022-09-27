@@ -21,9 +21,14 @@ class HeadLineTableViewCell: UITableViewCell {
     }
     
     private let collectionView:UICollectionView = {
-        let customLayout = UICollectionViewLayout()
+        let customLayout = UICollectionViewFlowLayout()
+        customLayout.minimumLineSpacing = 30
+        customLayout.itemSize = CGSize(width: UIScreen.main.bounds.width/1.5 - 15, height: 250)
+        customLayout.scrollDirection = .horizontal
+        customLayout.sectionInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: customLayout)
         collectionView.register(NewsArticlesCollectionViewCell.self, forCellWithReuseIdentifier: NewsArticlesCollectionViewCell.identifier)
+        collectionView.backgroundColor = UIColor(named: "BackgroundColor")
         return collectionView
     }()
     
@@ -31,6 +36,12 @@ class HeadLineTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setDataSourceAndDelegate()
         contentView.addSubview(self.collectionView)
+        guard let color = UIColor(named: "BackgroundColor") else {
+            debugPrint("No Color")
+            return
+        }
+        
+        self.contentView.backgroundColor = color
     }
     
     required init?(coder: NSCoder) {
@@ -45,7 +56,7 @@ class HeadLineTableViewCell: UITableViewCell {
     private func setDataSourceAndDelegate()
     {
         self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        
     }
     
 }
@@ -53,18 +64,26 @@ class HeadLineTableViewCell: UITableViewCell {
 extension HeadLineTableViewCell:UICollectionViewDataSource,UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        debugPrint(listOfArticles?.count ?? 0)
         return listOfArticles?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        
         let cell = self.collectionView.dequeReusableCells(identifier: NewsArticlesCollectionViewCell.identifier, indexPath: indexPath) as NewsArticlesCollectionViewCell
+        
+        guard let listOfArticles = self.listOfArticles else {
+            debugPrint("Empty Cell")
+            return UICollectionViewCell()
+        }
+        
+        cell.getArticle(article: listOfArticles[indexPath.row])
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 0, height: 0)
-    }
+    
 }
 
 extension HeadLineTableViewCell

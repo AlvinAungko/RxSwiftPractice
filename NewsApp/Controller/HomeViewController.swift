@@ -11,7 +11,6 @@ import RxSwift
 
 class HomeViewController: UIViewController {
     
-    
     private let disposeBag = DisposeBag()
     private var listOfArticles:Array<Article>?
     {
@@ -35,10 +34,11 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(named: "BackgroundColor")
         view.addSubview(self.tableView)
+        setDataSourceAndDelegate()
         getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-22", to: "2022-09-22", sortBy: "popularity"))
-        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
+//        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
 
     }
     
@@ -48,6 +48,16 @@ class HomeViewController: UIViewController {
         
     }
     
+    
+}
+
+extension HomeViewController
+{
+    private func setDataSourceAndDelegate()
+    {
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+    }
 }
 
 extension HomeViewController
@@ -56,20 +66,20 @@ extension HomeViewController
     {
         switch network {
         case .appleWebsite(let query, let from, let to, let sortBy):
-            homeViewModel.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: NewsDataResponse.self) {
+            homeViewModel.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: NewsDataResponse.self) { [weak self] in
                 switch $0 {
                 case.success(let appleNews):
-                    self.listOfArticles = appleNews.articles ?? Array<Article>()
+                    self?.listOfArticles = appleNews.articles ?? Array<Article>()
                 case.failure(let errorMessage):
                     debugPrint(errorMessage)
                 }
             }
         case .topHeadLines(let country, let category):
-            homeViewModel.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: NewsDataResponse.self) {
+            homeViewModel.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: NewsDataResponse.self) { [weak self] in
                 switch $0
                 {
                 case.success(let topArticles):
-                    self.listOfArticles = topArticles.articles ?? Array<Article>()
+                    self?.listOfArticles = topArticles.articles ?? Array<Article>()
                 case.failure(let errorMessage):
                     debugPrint(errorMessage)
                 }
@@ -235,15 +245,6 @@ extension HomeViewController
     
 }
 
-extension HomeViewController
-{
-    private func setDataSourceAndDelegate()
-    {
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-    }
-    
-}
 
 extension HomeViewController:UITableViewDataSource,UITableViewDelegate
 {
@@ -258,22 +259,22 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section
         {
-        case 0:
+            case 0:
             let cell = self.tableView.dequeReusableCells(identifier: HeadLineTableViewCell.identifier, indexPath: indexPath) as HeadLineTableViewCell
             
             cell.setArticles(articles: self.listOfArticles ?? Array<Article>())
             
             return cell
             
-        default: return UITableViewCell()
+            default: return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section
         {
-        case 0: return 0
-        default:return 0
+            case 0: return 350
+            default:return 0
         }
     }
     
@@ -287,9 +288,8 @@ enum SampleError:Error
 
 extension HomeViewController
 {
-    private func doSomeRealMExercises()
+    private func doSomeRxSwift()
     {
-        
          var count = 0
         //MARK: Create a custom Observable<List Of Strings>
         
