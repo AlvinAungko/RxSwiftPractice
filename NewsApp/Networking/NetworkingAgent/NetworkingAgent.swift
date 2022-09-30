@@ -20,14 +20,14 @@ enum Response<T:Codable>
     case failure(String)
 }
 
-protocol MovieNetworkProtocol
+protocol NewsNetworkProtocol
 {
     func fetchNewsFromAPI<T:Codable>(networkCall:NewsNetwork,decoder:T.Type,completion:@escaping(Response<T>)->Void)
     
 }
 
 
-final class NetworkingAgent:MovieNetworkProtocol
+final class NetworkingAgent:NewsNetworkProtocol
 {
     
     static let shared = NetworkingAgent()

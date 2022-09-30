@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3212317889EBD0D7D33DBD25 /* Pods_NewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C2B72FD297DBDF422A5E7E /* Pods_NewsApp.framework */; };
-		E160C3EF28E5E38000AF9559 /* RealMObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160C3EE28E5E38000AF9559 /* RealMObjects.swift */; };
+		E160C3EF28E5E38000AF9559 /* NewsRealMObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160C3EE28E5E38000AF9559 /* NewsRealMObjects.swift */; };
 		E1B0030B28DD62960090BB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030A28DD62960090BB12 /* AppDelegate.swift */; };
 		E1B0030D28DD62960090BB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030C28DD62960090BB12 /* SceneDelegate.swift */; };
 		E1B0030F28DD62960090BB12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030E28DD62960090BB12 /* HomeViewController.swift */; };
@@ -24,13 +24,14 @@
 		E1B0033B28E00C950090BB12 /* RxSwiftPracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0033A28E00C950090BB12 /* RxSwiftPracticeViewController.swift */; };
 		E1B0033D28E00D000090BB12 /* DummyObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0033C28E00D000090BB12 /* DummyObjects.swift */; };
 		E1B0034228E18A720090BB12 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0034128E18A720090BB12 /* Utils.swift */; };
+		E1B9DF3328E6CFEB0053AD73 /* ArticleModelLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B9DF3228E6CFEB0053AD73 /* ArticleModelLayer.swift */; };
 		E1FD4DE028E3FF1400D08082 /* OperatorsInRxSwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FD4DDF28E3FF1400D08082 /* OperatorsInRxSwiftViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E2783FFF0DB2EB2B7CAFEB3 /* Pods-NewsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp.release.xcconfig"; path = "Target Support Files/Pods-NewsApp/Pods-NewsApp.release.xcconfig"; sourceTree = "<group>"; };
 		91983F83553540DDA6D38AF4 /* Pods-NewsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp.debug.xcconfig"; path = "Target Support Files/Pods-NewsApp/Pods-NewsApp.debug.xcconfig"; sourceTree = "<group>"; };
-		E160C3EE28E5E38000AF9559 /* RealMObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealMObjects.swift; sourceTree = "<group>"; };
+		E160C3EE28E5E38000AF9559 /* NewsRealMObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRealMObjects.swift; sourceTree = "<group>"; };
 		E1B0030728DD62960090BB12 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1B0030A28DD62960090BB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1B0030C28DD62960090BB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +49,7 @@
 		E1B0033A28E00C950090BB12 /* RxSwiftPracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxSwiftPracticeViewController.swift; sourceTree = "<group>"; };
 		E1B0033C28E00D000090BB12 /* DummyObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyObjects.swift; sourceTree = "<group>"; };
 		E1B0034128E18A720090BB12 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E1B9DF3228E6CFEB0053AD73 /* ArticleModelLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModelLayer.swift; sourceTree = "<group>"; };
 		E1FD4DDF28E3FF1400D08082 /* OperatorsInRxSwiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorsInRxSwiftViewController.swift; sourceTree = "<group>"; };
 		F6C2B72FD297DBDF422A5E7E /* Pods_NewsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -84,7 +86,7 @@
 		E160C3F028E5E38700AF9559 /* Persistent Layer */ = {
 			isa = PBXGroup;
 			children = (
-				E160C3EE28E5E38000AF9559 /* RealMObjects.swift */,
+				E160C3EE28E5E38000AF9559 /* NewsRealMObjects.swift */,
 			);
 			path = "Persistent Layer";
 			sourceTree = "<group>";
@@ -166,6 +168,7 @@
 			children = (
 				E1B0032628DD7CF00090BB12 /* NewsDataModel.swift */,
 				E1B0033C28E00D000090BB12 /* DummyObjects.swift */,
+				E1B9DF3428E6CFEF0053AD73 /* ArticleLayer */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,6 +237,14 @@
 				E1B0034128E18A720090BB12 /* Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		E1B9DF3428E6CFEF0053AD73 /* ArticleLayer */ = {
+			isa = PBXGroup;
+			children = (
+				E1B9DF3228E6CFEB0053AD73 /* ArticleModelLayer.swift */,
+			);
+			path = ArticleLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,9 +366,10 @@
 				E1B0030B28DD62960090BB12 /* AppDelegate.swift in Sources */,
 				E1B0034228E18A720090BB12 /* Utils.swift in Sources */,
 				E1B0032728DD7CF00090BB12 /* NewsDataModel.swift in Sources */,
+				E1B9DF3328E6CFEB0053AD73 /* ArticleModelLayer.swift in Sources */,
 				E1B0032128DD67720090BB12 /* EndPoints.swift in Sources */,
 				E1B0032B28DD8DEF0090BB12 /* Constants.swift in Sources */,
-				E160C3EF28E5E38000AF9559 /* RealMObjects.swift in Sources */,
+				E160C3EF28E5E38000AF9559 /* NewsRealMObjects.swift in Sources */,
 				E1B0030D28DD62960090BB12 /* SceneDelegate.swift in Sources */,
 				E1B0032E28DDEBAD0090BB12 /* HomeViewModel.swift in Sources */,
 				E1B0033B28E00C950090BB12 /* RxSwiftPracticeViewController.swift in Sources */,
