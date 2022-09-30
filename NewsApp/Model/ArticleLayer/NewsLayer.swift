@@ -14,6 +14,7 @@ protocol NewsModelLayerProtocol
 
 struct NewsModelLayer:NewsNetworkProtocol,NewsModelLayerProtocol {
     
+    private let networkingAgent = NetworkingAgent.shared
     static let shared = NewsModelLayer()
     
     private init() {}
@@ -23,7 +24,7 @@ struct NewsModelLayer:NewsNetworkProtocol,NewsModelLayerProtocol {
         switch networkCall
         {
             case .appleWebsite(let query, let from, let to, let sortBy):
-            NetworkingAgent.shared.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: decoder) {
+            self.networkingAgent.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: decoder) {
                 switch $0
                 {
                 case.success(let data):
@@ -33,7 +34,7 @@ struct NewsModelLayer:NewsNetworkProtocol,NewsModelLayerProtocol {
                 }
             }
         case .topHeadLines(let country, let category):
-            NetworkingAgent.shared.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: decoder) {
+            self.networkingAgent.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: decoder) {
                 switch $0 {
                 case.success(let data):
                     completion(.success(data))
