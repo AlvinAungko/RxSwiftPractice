@@ -38,7 +38,7 @@ class HomeViewController: UIViewController {
         view.addSubview(self.tableView)
         setDataSourceAndDelegate()
         getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-22", to: "2022-09-22", sortBy: "popularity"))
-//        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
+       playMathsWithObservables()
 
     }
     
@@ -343,5 +343,60 @@ extension HomeViewController
         }.disposed(by: self.disposeBag)
 
     }
+}
+
+extension HomeViewController
+{
+    private func playMathsWithObservables()
+    {
+        let subject1 = BehaviorSubject<String>(value:"🦜") //The First Item
+        let subject2 = BehaviorSubject<String>(value: "🌵")
+        let subjectSubject = BehaviorSubject(value: subject1)
+        
+        subjectSubject.asObservable().concat().subscribe {
+            debugPrint("Printed : \($0)")
+        }.disposed(by: self.disposeBag)
+        
+        subject1.onNext("🪴") // The Second Item
+        subjectSubject.onNext(subject2)
+        subject2.onNext("🌼") // This won't be extracted
+        subject2.onNext("🍌")
+        subject1.onNext("🌞") // The Third Item
+        subject1.onCompleted()
+        subject2.onNext("🐇") // The Fifth Item
+        
+    }
+    
+    private func playBehaviorSubject()
+    {
+        let behaviorSubject = BehaviorSubject(value: "🐈")
+        
+        
+        //MARK: First Subscriber
+        behaviorSubject.subscribe {
+            debugPrint("Event : \($0)")
+        }.disposed(by: self.disposeBag)
+        
+        //MARK: Emitting event to the Current Subscriber
+        
+        behaviorSubject.onNext("🌕")
+        behaviorSubject.onNext("🌤")
+        behaviorSubject.onCompleted()
+        behaviorSubject.onNext("🌙") // This won't be pushed as an on next event
+        //MARK: This is the end point for the first observer
+        
+        //MARK: Second Subscriber
+        
+        behaviorSubject.subscribe {
+            debugPrint("Event : \($0)")
+        }.disposed(by: self.disposeBag)
+        
+        behaviorSubject.onNext("🌙")
+        behaviorSubject.onNext("💦")
+        behaviorSubject.onCompleted()
+        
+        //MARK: This will be the endpoint for second subscriber
+    }
+    
 }
 

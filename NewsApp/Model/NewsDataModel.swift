@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct NewsDataResponse:Codable
 {
@@ -30,8 +31,9 @@ struct Source:Codable
     }
 }
 
-struct Article:Codable
-{
+struct Article:Codable {
+   
+    
     let source:Source?
     let author:String?
     let title:String?
