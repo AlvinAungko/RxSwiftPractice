@@ -8,6 +8,8 @@
 import Foundation
 import RealmSwift
 
+//MARK: 
+
 class NewsObject : Object
 {
     @Persisted(primaryKey: true) var newsID:UUID
