@@ -17,8 +17,7 @@ struct Utils {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.23
         view.layer.shadowOffset = CGSize(width: 5, height: 6)
-       
-//        view.clipsToBounds = true
-        
     }
 }
+
+

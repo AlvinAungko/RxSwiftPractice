@@ -46,7 +46,9 @@ final class NetworkingAgent:NewsNetworkProtocol
                 {
                     switch $0.result
                     {
-                    case.success(let listOfApple):completion(.success(listOfApple))
+                    case.success(let listOfApple):
+                        completion(.success(listOfApple))
+                        
                     case.failure(let error):completion(.failure(error.localizedDescription))
                     }
                 } else {

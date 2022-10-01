@@ -15,9 +15,14 @@ class HomeViewController: UIViewController {
     private var listOfArticles:Array<Article>?
     {
         didSet {
-            if let _ = listOfArticles
+            if let data = listOfArticles
             {
                 self.tableView.reloadData()
+                data.forEach {
+                    debugPrint($0.title ?? "undefined")
+                }
+            } else {
+                debugPrint("The data doesn't get in")
             }
         }
     }
@@ -37,8 +42,9 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "BackgroundColor")
         view.addSubview(self.tableView)
         setDataSourceAndDelegate()
-        getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-22", to: "2022-09-22", sortBy: "popularity"))
-       playMathsWithObservables()
+//        getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-30", to: "2022-09-30", sortBy: "popularity"))
+        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
+//       playMathsWithObservables()
 
     }
     
@@ -70,6 +76,7 @@ extension HomeViewController
                 switch $0 {
                 case.success(let appleNews):
                     self?.listOfArticles = appleNews.articles ?? Array<Article>()
+                    debugPrint("\(appleNews.articles?.count ?? 0) is the total results")
                 case.failure(let errorMessage):
                     debugPrint(errorMessage)
                 }

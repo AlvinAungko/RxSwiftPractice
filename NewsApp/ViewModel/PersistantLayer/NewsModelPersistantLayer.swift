@@ -11,20 +11,48 @@ protocol ArticlePersistanceLayerProtocol
 {
     
     //MARK: To Do
-    func saveArticles(articles:Array<Article>)
-    func getArticlesFromLocalDatabase(completion:@escaping(Array<Article>)->Void)
+    func saveArticles(news:NewsDataResponse)
+    func getArticlesFromLocalDatabase(completion:@escaping(Response<NewsDataResponse>)->Void)
 }
 
-struct ArticlePersistanceLayer:ArticlePersistanceLayerProtocol
+final class ArticlePersistanceLayer:BaseRepository,ArticlePersistanceLayerProtocol
 {
     static let shared = ArticlePersistanceLayer()
     
-    func saveArticles(articles: Array<Article>) {
-        debugPrint("")
+    private override init() {
+        super.init()
     }
     
-    func getArticlesFromLocalDatabase(completion: @escaping (Array<Article>) -> Void) {
-        debugPrint("")
+    func saveArticles(news:NewsDataResponse) {
+        
+        let newsObject = NewsObject()
+        
+        let newsArticle = news.saveNews(realM: realM, newsObject: newsObject)
+        
+        guard let newsArticle = newsArticle else {
+            return
+        }
+        
+        do {
+            try realM.write({
+                realM.add(newsArticle, update: .modified)
+            })
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+        
+    }
+    
+    func getArticlesFromLocalDatabase(completion: @escaping (Response<NewsDataResponse>) -> Void) {
+        let news:Array<NewsDataResponse> = realM.objects(NewsObject.self).map {
+            $0.toNewsDataResponse()
+        }
+        guard let firstArticle = news.first else {
+            return
+        }
+        
+        completion(.success(firstArticle))
+        
     }
     
 }
