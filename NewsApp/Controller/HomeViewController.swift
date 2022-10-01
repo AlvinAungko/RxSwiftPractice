@@ -15,12 +15,9 @@ class HomeViewController: UIViewController {
     private var listOfArticles:Array<Article>?
     {
         didSet {
-            if let data = listOfArticles
+            if let _ = listOfArticles
             {
                 self.tableView.reloadData()
-                data.forEach {
-                    debugPrint($0.title ?? "undefined")
-                }
             } else {
                 debugPrint("The data doesn't get in")
             }
@@ -42,8 +39,8 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "BackgroundColor")
         view.addSubview(self.tableView)
         setDataSourceAndDelegate()
-//        getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-30", to: "2022-09-30", sortBy: "popularity"))
-        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
+        getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-30", to: "2022-09-30", sortBy: "popularity"))
+//        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
 //       playMathsWithObservables()
 
     }

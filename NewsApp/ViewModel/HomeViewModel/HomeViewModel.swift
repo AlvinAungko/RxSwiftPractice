@@ -24,7 +24,7 @@ final class HomeViewModel:BaseRepository,NewsNetworkProtocol
         switch networkCall {
         case .appleWebsite(let query, let from, let to, let sortBy):
             
-            guard let listOfNewsDataInDataBase = realM.objects(NewsObject.self).first else {
+            guard let appleNews = realM.object(ofType: ContentTypeObject.self, forPrimaryKey: ContentTypeMapper.apple.rawValue) else {
                 newsModelLayer.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: NewsDataResponse.self) { [weak self] in
                     
                     guard let self = self else { return }
@@ -55,34 +55,39 @@ final class HomeViewModel:BaseRepository,NewsNetworkProtocol
                 return
             }
             
-            completion(.success(listOfNewsDataInDataBase.toNewsDataResponse() as! T))
+            completion(.success(appleNews.newsObject?.toNewsDataResponse() as! T))
             
         case .topHeadLines(let country, let category):
             
-            
-            newsModelLayer.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: NewsDataResponse.self) {
-                switch $0
-                {
-                case.success(let topHeadLines):
-                    self.contentPersistanceLayer.saveContentTypeWithAssociatedNewsObject(contentType: .topHeadLines, newsResponse: topHeadLines)
-                    self.contentPersistanceLayer.getNewsFromLocalDatabase(content: .topHeadLines) {
-                        switch $0
-                        {
-                        case.success(let topHeadLines):
-                            guard let topHeadLines = topHeadLines as? T else {
-                                return
+            guard let topHeadLines = realM.object(ofType: ContentTypeObject.self, forPrimaryKey: ContentTypeMapper.topHeadLines.rawValue) else {
+                newsModelLayer.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: NewsDataResponse.self) {
+                    switch $0
+                    {
+                    case.success(let topHeadLines):
+                        self.contentPersistanceLayer.saveContentTypeWithAssociatedNewsObject(contentType: .topHeadLines, newsResponse: topHeadLines)
+                        self.contentPersistanceLayer.getNewsFromLocalDatabase(content: .topHeadLines) {
+                            switch $0
+                            {
+                            case.success(let topHeadLines):
+                                guard let topHeadLines = topHeadLines as? T else {
+                                    return
+                                }
+                                
+                                completion(.success(topHeadLines))
+                                
+                            case.failure(let errorMessage):
+                                completion(.failure(errorMessage))
                             }
-                            
-                            completion(.success(topHeadLines))
-                            
-                        case.failure(let errorMessage):
-                            completion(.failure(errorMessage))
                         }
+                    case.failure(let errorMessage):
+                        debugPrint(errorMessage)
                     }
-                case.failure(let errorMessage):
-                    debugPrint(errorMessage)
                 }
+                return
             }
+            
+            completion(.success(topHeadLines.newsObject?.toNewsDataResponse() as! T))
+            
         }
         
     }
