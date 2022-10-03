@@ -8,14 +8,19 @@
 import UIKit
 import RxSwift
 
+enum NewsSections:Int
+{
+   case appleNews = 0
+   case topHeadLines = 1
+}
 
 class HomeViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
-    private var listOfArticles:Array<Article>?
+    private var listOfAppleArticles:Array<Article>?
     {
         didSet {
-            if let _ = listOfArticles
+            if let _ = listOfAppleArticles
             {
                 self.tableView.reloadData()
             } else {
@@ -24,7 +29,20 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private var listOfTopHeadLinesArticles : Array<Article>?
+    {
+        didSet {
+            if let _ = listOfAppleArticles
+            {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    
+    
     private let homeViewModel = HomeViewModel.shared
+    private let fireBaseShared = FireBasePractice.shared
     
     private var tableView:UITableView = {
         let tableView = UITableView()
@@ -40,17 +58,16 @@ class HomeViewController: UIViewController {
         view.addSubview(self.tableView)
         setDataSourceAndDelegate()
         getNewsArticle(network: .appleWebsite(query: "apple", from: "2022-09-30", to: "2022-09-30", sortBy: "popularity"))
-//        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
-//       playMathsWithObservables()
-
+        getNewsArticle(network: .topHeadLines(country: "us", category: "business"))
+        fireBaseShared.retrieveDocumentsFromFireStore()
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.tableView.frame = view.bounds
-        
     }
-    
     
 }
 
@@ -72,8 +89,7 @@ extension HomeViewController
             homeViewModel.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: NewsDataResponse.self) { [weak self] in
                 switch $0 {
                 case.success(let appleNews):
-                    self?.listOfArticles = appleNews.articles ?? Array<Article>()
-                    debugPrint("\(appleNews.articles?.count ?? 0) is the total results")
+                    self?.listOfAppleArticles = appleNews.articles ?? Array<Article>()
                 case.failure(let errorMessage):
                     debugPrint(errorMessage)
                 }
@@ -83,7 +99,7 @@ extension HomeViewController
                 switch $0
                 {
                 case.success(let topArticles):
-                    self?.listOfArticles = topArticles.articles ?? Array<Article>()
+                    self?.listOfTopHeadLinesArticles = topArticles.articles ?? Array<Article>()
                 case.failure(let errorMessage):
                     debugPrint(errorMessage)
                 }
@@ -162,7 +178,7 @@ extension HomeViewController
         } onDisposed: {
             debugPrint("Disposed")
         }.disposed(by: self.disposeBag)
-
+        
     }
     
     private func testingSubject()
@@ -170,7 +186,7 @@ extension HomeViewController
         let mySubject = PublishSubject<String>()
         
         
-       let firstSubscriberToMySubject = mySubject.subscribe { event in
+        let firstSubscriberToMySubject = mySubject.subscribe { event in
             debugPrint("Print : \(event.element ?? "") and \(event)")
         }
         
@@ -194,7 +210,7 @@ extension HomeViewController
     {
         let myObservable = ReplaySubject<String>.create(bufferSize: 2)
         
-       let firstObserver = myObservable.subscribe {
+        let firstObserver = myObservable.subscribe {
             debugPrint("Printed : \($0.element!) and \($0)")
         }
         
@@ -257,32 +273,40 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section
         {
-            case 0:
+        case NewsSections.appleNews.rawValue:
             let cell = self.tableView.dequeReusableCells(identifier: HeadLineTableViewCell.identifier, indexPath: indexPath) as HeadLineTableViewCell
             
-            cell.setArticles(articles: self.listOfArticles ?? Array<Article>())
+            cell.setArticles(articles: self.listOfAppleArticles ?? Array<Article>())
             
             return cell
             
-            default: return UITableViewCell()
+        case NewsSections.topHeadLines.rawValue:
+            let cell = self.tableView.dequeReusableCells(identifier: HeadLineTableViewCell.identifier, indexPath: indexPath) as HeadLineTableViewCell
+            
+            cell.setArticles(articles: self.listOfTopHeadLinesArticles ?? [])
+         
+            return cell
+            
+        default: return UITableViewCell()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section
         {
-            case 0: return 350
-            default:return 0
+        case 0: return 350
+        case 1: return 350
+        default:return 0
         }
     }
     
-
+    
 }
 
 enum SampleError:Error
@@ -294,7 +318,7 @@ extension HomeViewController
 {
     private func doSomeRxSwift()
     {
-         var count = 0
+        var count = 0
         //MARK: Create a custom Observable<List Of Strings>
         
         let myCustomObservable = Observable<[String]>.create { subscriber in
@@ -345,7 +369,7 @@ extension HomeViewController
         } onDisposed: {
             debugPrint("Disposed")
         }.disposed(by: self.disposeBag)
-
+        
     }
 }
 

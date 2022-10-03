@@ -64,12 +64,11 @@ class HeadLineTableViewCell: UITableViewCell {
 extension HeadLineTableViewCell:UICollectionViewDataSource,UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        debugPrint(listOfArticles?.count ?? 0)
+//        debugPrint(listOfArticles?.count ?? 0)
         return listOfArticles?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         
         let cell = self.collectionView.dequeReusableCells(identifier: NewsArticlesCollectionViewCell.identifier, indexPath: indexPath) as NewsArticlesCollectionViewCell
         
