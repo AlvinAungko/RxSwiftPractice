@@ -10,6 +10,7 @@
 		3212317889EBD0D7D33DBD25 /* Pods_NewsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C2B72FD297DBDF422A5E7E /* Pods_NewsApp.framework */; };
 		E100DF2228E6DDB000653686 /* NewsModelPersistantLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100DF2128E6DDB000653686 /* NewsModelPersistantLayer.swift */; };
 		E100DF2528E73B9000653686 /* BaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100DF2428E73B9000653686 /* BaseRepository.swift */; };
+		E101327728EB22B600ABCF03 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E101327628EB22B600ABCF03 /* DatePickerViewController.swift */; };
 		E125781E28E8C6BD0051F62A /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E125781D28E8C6BD0051F62A /* ContentType.swift */; };
 		E125782028E8C7690051F62A /* ContentTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E125781F28E8C7690051F62A /* ContentTypeRepository.swift */; };
 		E125782228E9EF8A0051F62A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E125782128E9EF8A0051F62A /* GoogleService-Info.plist */; };
@@ -39,6 +40,7 @@
 		91983F83553540DDA6D38AF4 /* Pods-NewsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewsApp.debug.xcconfig"; path = "Target Support Files/Pods-NewsApp/Pods-NewsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E100DF2128E6DDB000653686 /* NewsModelPersistantLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModelPersistantLayer.swift; sourceTree = "<group>"; };
 		E100DF2428E73B9000653686 /* BaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRepository.swift; sourceTree = "<group>"; };
+		E101327628EB22B600ABCF03 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		E125781D28E8C6BD0051F62A /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		E125781F28E8C7690051F62A /* ContentTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTypeRepository.swift; sourceTree = "<group>"; };
 		E125782128E9EF8A0051F62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				E1B0030E28DD62960090BB12 /* HomeViewController.swift */,
 				E1B0033A28E00C950090BB12 /* RxSwiftPracticeViewController.swift */,
 				E1FD4DDF28E3FF1400D08082 /* OperatorsInRxSwiftViewController.swift */,
+				E101327628EB22B600ABCF03 /* DatePickerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				E125782528E9F4610051F62A /* FirebasePractice.swift in Sources */,
 				E125782028E8C7690051F62A /* ContentTypeRepository.swift in Sources */,
 				E1B0033728DEFA800090BB12 /* Extensions.swift in Sources */,
+				E101327728EB22B600ABCF03 /* DatePickerViewController.swift in Sources */,
 				E100DF2528E73B9000653686 /* BaseRepository.swift in Sources */,
 				E1B0032528DD79AD0090BB12 /* NetworkingAgent.swift in Sources */,
 			);
@@ -592,6 +596,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -620,6 +625,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
