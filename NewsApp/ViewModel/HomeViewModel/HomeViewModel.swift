@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol HomeViewModelProtcol
+{
+    func fetchNewsFromHomeViewModel<T:Codable>(networkCall:NewsNetwork,completion:@escaping(Response<T>)->Void)
+}
+
 final class HomeViewModel:BaseRepository,NewsNetworkProtocol
 {
     public static let shared = HomeViewModel()
@@ -14,6 +19,7 @@ final class HomeViewModel:BaseRepository,NewsNetworkProtocol
     let newsModelLayer = NewsModelLayer.shared
     let articlePersistantLayer = ArticlePersistanceLayer.shared
     let contentPersistanceLayer = ContentTypeRepository.shared
+    let networkingAgentShared = NetworkingAgent.shared
     
     private override init() {
         super.init()
@@ -93,4 +99,48 @@ final class HomeViewModel:BaseRepository,NewsNetworkProtocol
     }
     
     
+}
+
+extension HomeViewModel:HomeViewModelProtcol
+{
+    func fetchNewsFromHomeViewModel<T>(networkCall: NewsNetwork, completion: @escaping (Response<T>) -> Void) where T : Decodable, T : Encodable {
+        switch networkCall {
+        case .appleWebsite(let query, let from, let to, let sortBy):
+            guard let data = realM.object(ofType: ContentTypeObject.self, forPrimaryKey: ContentTypeMapper.apple.rawValue) else {
+                networkingAgentShared.fetchNewsFromAPI(networkCall: .appleWebsite(query: query, from: from, to: to, sortBy: sortBy), decoder: NewsDataResponse.self) {
+                    switch $0 {
+                    case.success(let newsDataResponse):
+                        completion(.success(newsDataResponse as! T))
+                    case.failure(let errorMessage):
+                        completion(.failure(errorMessage))
+                    }
+                }
+                return
+            }
+            guard let newsArticle = data.newsObject?.toNewsDataResponse() as? T else {
+                return
+            }
+            completion(.success(newsArticle))
+        case .topHeadLines(let country, let category):
+            guard let newsArticle = realM.object(ofType: ContentTypeObject.self, forPrimaryKey: ContentTypeMapper.topHeadLines.rawValue) else {
+                self.networkingAgentShared.fetchNewsFromAPI(networkCall: .topHeadLines(country: country, category: category), decoder: NewsDataResponse.self) {
+                    switch $0 {
+                    case.success(let newsDataResponse):
+                        guard let topHeadLines = newsDataResponse as? T else {
+                            return
+                        }
+                        completion(.success(topHeadLines))
+                    case.failure(let errorMessage):
+                        completion(.failure(errorMessage))
+                    }
+                }
+                return
+            }
+            guard let topHeadLines = newsArticle.newsObject?.toNewsDataResponse() as? T else {
+                return
+            }
+            
+            completion(.success(topHeadLines))
+        }
+    }
 }

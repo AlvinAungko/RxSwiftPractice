@@ -16,6 +16,7 @@
 		E125782228E9EF8A0051F62A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E125782128E9EF8A0051F62A /* GoogleService-Info.plist */; };
 		E125782528E9F4610051F62A /* FirebasePractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E125782428E9F4610051F62A /* FirebasePractice.swift */; };
 		E160C3EF28E5E38000AF9559 /* NewsRealMObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E160C3EE28E5E38000AF9559 /* NewsRealMObjects.swift */; };
+		E177CB4428EBFDD40022ED2A /* CalenderViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177CB4328EBFDD30022ED2A /* CalenderViewItem.swift */; };
 		E1B0030B28DD62960090BB12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030A28DD62960090BB12 /* AppDelegate.swift */; };
 		E1B0030D28DD62960090BB12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030C28DD62960090BB12 /* SceneDelegate.swift */; };
 		E1B0030F28DD62960090BB12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B0030E28DD62960090BB12 /* HomeViewController.swift */; };
@@ -46,6 +47,7 @@
 		E125782128E9EF8A0051F62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E125782428E9F4610051F62A /* FirebasePractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePractice.swift; sourceTree = "<group>"; };
 		E160C3EE28E5E38000AF9559 /* NewsRealMObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRealMObjects.swift; sourceTree = "<group>"; };
+		E177CB4328EBFDD30022ED2A /* CalenderViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderViewItem.swift; sourceTree = "<group>"; };
 		E1B0030728DD62960090BB12 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1B0030A28DD62960090BB12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1B0030C28DD62960090BB12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 				E125782428E9F4610051F62A /* FirebasePractice.swift */,
 			);
 			path = FireBasePractice;
+			sourceTree = "<group>";
+		};
+		E177CB4528EBFDD80022ED2A /* CalenderViewItem */ = {
+			isa = PBXGroup;
+			children = (
+				E177CB4328EBFDD30022ED2A /* CalenderViewItem.swift */,
+			);
+			path = CalenderViewItem;
 			sourceTree = "<group>";
 		};
 		E1B002FE28DD62960090BB12 = {
@@ -243,6 +253,7 @@
 			children = (
 				E1B0033E28E1777F0090BB12 /* TableViewCell */,
 				E1B0033F28E177880090BB12 /* CollectionViewCell */,
+				E177CB4528EBFDD80022ED2A /* CalenderViewItem */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -455,6 +466,7 @@
 				E1B0033B28E00C950090BB12 /* RxSwiftPracticeViewController.swift in Sources */,
 				E1B0033228DEB5090090BB12 /* HeadLineTableViewCell.swift in Sources */,
 				E1B0033528DED5B10090BB12 /* NewsArticlesCollectionViewCell.swift in Sources */,
+				E177CB4428EBFDD40022ED2A /* CalenderViewItem.swift in Sources */,
 				E125782528E9F4610051F62A /* FirebasePractice.swift in Sources */,
 				E125782028E8C7690051F62A /* ContentTypeRepository.swift in Sources */,
 				E1B0033728DEFA800090BB12 /* Extensions.swift in Sources */,
